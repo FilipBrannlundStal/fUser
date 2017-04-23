@@ -1,5 +1,5 @@
 {
-    "name": "fbs/fUser",
+    "name": "filipbs/fUser",
     "type": "library",
     "description": "fUser package made for dbwebb.se",
     "keywords": ["boilerplate", "framework", "mvc", "micro", "education", "fUser"],
