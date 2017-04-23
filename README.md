@@ -4,7 +4,80 @@ fUser model is based on dbwebb.se user package for Anax mvc. fUser has improved 
 * Loginsystem
 * Character sensetive search for searching users
 
+{info:title=Useful Information}Make sure you have database file in config. E.g /config/database_mysql.php{info}
 
+# Install
+In index file make sure DI is set to UserController
+Create DI for database
+```$di->setShared('db', function() {
+    $db = new \Mos\Database\CDatabaseBasic();
+    $db->setOptions(require ANAX_APP_PATH . 'config/database_mysql.php');
+    $db->connect();
+    return $db;
+});
+```
+Create a default router
+```$app->router->add('user', function () use ($app) {
+    $app->theme->setTitle("Visa alla användare");
+    $app->dispatcher->forward([
+        'controller' => 'user',
+        'action'     => 'list',
+    ]);
+});
+```
+
+## Auto generate table
+
+{tip:title=Helpful Hint\}Create an route to autogenerate database table with default users.
+```
+$app->router->add('setup', function() use ($app) {
+
+    //$app->db->setVerbose();
+
+    $app->db->dropTableIfExists('user')->execute();
+
+    $app->db->createTable(
+        'user',
+        [
+            'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
+            'acronym' => ['varchar(20)', 'unique', 'not null'],
+            'email' => ['varchar(80)'],
+            'name' => ['varchar(80)'],
+            'password' => ['varchar(255)'],
+            'created' => ['datetime'],
+            'updated' => ['datetime'],
+            'deleted' => ['datetime'],
+            'active' => ['datetime'],
+        ]
+    )->execute();
+		$app->db->insert(
+        'user',
+        ['acronym', 'email', 'name', 'password', 'created', 'active']
+    );
+
+    $now = gmdate('Y-m-d H:i:s');
+
+    $app->db->execute([
+        'admin',
+        'admin@dbwebb.se',
+        'Administrator',
+        password_hash('admin', PASSWORD_DEFAULT),
+        $now,
+        $now
+    ]);
+
+    $app->db->execute([
+        'doe',
+        'doe@dbwebb.se',
+        'John/Jane Doe',
+        password_hash('doe', PASSWORD_DEFAULT),
+        $now,
+        $now
+    ]);
+});
+```
+Enter /setup and your database is ready to go
+{tip}
 
 Anax-MVC
 =========
