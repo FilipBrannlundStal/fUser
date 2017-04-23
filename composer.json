@@ -1,0 +1,24 @@
+{
+    "name": "fUser",
+    "type": "library",
+    "description": "fUser package made for dbwebb.se",
+    "keywords": ["boilerplate", "framework", "mvc", "micro", "education", "fUser"],
+    "homepage": "http://dbwebb.se",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Filip Brännlund Stål",
+            "email": "filip.brannlundstal@gmail.com",
+            "homepage": "http://filipbs.se",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "mos/cform": "2.x-dev",
+        "mos/cdatabase": "dev-master"
+    },
+    "autoload": {
+        "psr-4": { "Anax\\": "src/" }
+    }
+}
