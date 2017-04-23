@@ -1,3 +1,11 @@
+fUser
+=========
+fUser model is based on dbwebb.se user package for Anax mvc. fUser has improved features containing:
+* Loginsystem
+* Character sensetive search for searching users
+
+
+
 Anax-MVC
 =========
 
